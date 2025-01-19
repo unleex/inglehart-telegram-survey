@@ -106,7 +106,10 @@ def create_user_map(requesting_user_id: int | str, db: dict):
 
     for x, y, name in zip(other_users_x_positions, other_users_y_positions, other_names, strict=True):
         ax.annotate(name, (x, y))
-    ax.annotate(requesting_user_data["name"], (requesting_user_data["x_pos"], requesting_user_data["y_pos"]))
+    ax.annotate(
+        requesting_user_data["name"] + lexicon["fellow_annotation_self_postfix"], 
+        (requesting_user_data["x_pos"], requesting_user_data["y_pos"])
+    )
     plt.xlabel(lexicon["result_xlabel"])
     plt.ylabel(lexicon["result_ylabel"])
     path_to_image = f"tmp/user_map{requesting_user_data["name"]}{time.time()}.jpg"
