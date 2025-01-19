@@ -5,6 +5,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 from states.states import FSMStates
 from survey import questions, visualize_answers
 
+import asyncio
 import typing
 
 from aiogram import Router
@@ -86,3 +87,5 @@ async def user_map_and_fellow_suggestions(msg: Message, state: FSMContext):
     )
     user_map = FSInputFile(user_map_path)
     await msg.answer_photo(user_map, fellow_report_message)
+    await asyncio.sleep(visualize_answers.IMAGE_REMOVAL_TIMEOUT)
+    os.remove(user_map_path)
