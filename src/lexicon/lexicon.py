@@ -1,4 +1,11 @@
-LEXICON_EN = {
-    "some_phrase": "Hi there!",
-    "other_phrase": "Aiogram rocks!"
-    }
+LEXICON_RU = {
+    "start": 
+    """
+    Привет, я проведу опрос для выявления политической культуры по теории Инглхарта. Как Вас зовут?
+    """,
+    "start_survey": "Так, %s, начинаем опрос!",
+    "result": "%s, вот твои результаты.",
+    "result_xlabel": "Традиция vs Светскость",
+    "result_ylabel": "Выживание vs Самовыражение",
+    "result_title": "Моя политическая культура через @inglehart_survey_bot!"
+}
