@@ -1,6 +1,7 @@
 from lexicon.lexicon import LEXICON_RU
 from survey import questions
 
+import asyncio
 import os
 
 from aiogram.fsm.context import FSMContext
@@ -10,6 +11,8 @@ import time
 
 lexicon = LEXICON_RU
 BACKGROUND_IMAGE_PATH = "images/country_map.png"
+IMAGE_REMOVAL_TIMEOUT = 5
+IMAGE_DPI = 600
 
 def process_answers(answers: dict[int, dict[str, int]]):
     total_category_values = {
@@ -37,7 +40,7 @@ def plot_answers(total_category_values: dict[int, int], name: str, background_im
     plt.ylabel(lexicon["result_ylabel"])
     plt.title(lexicon["result_title"])
     path_to_image = f"tmp/{name}{time.time()}.jpg"
-    plt.savefig(path_to_image)
+    plt.savefig(path_to_image, dpi=IMAGE_DPI)
     return path_to_image
     
 
@@ -51,4 +54,5 @@ async def finish_and_send_results(msg: Message, state: FSMContext):
     image_path = visualize_answers(data["answers"], data["name"], BACKGROUND_IMAGE_PATH)
     image_results = FSInputFile(image_path)
     await msg.answer_photo(photo=image_results, caption=lexicon["result"] % data["name"])
+    await asyncio.sleep(IMAGE_REMOVAL_TIMEOUT)
     os.remove(image_path)
