@@ -8,14 +8,17 @@ from survey import questions, visualize_answers
 import typing
 
 from aiogram import Router
-from aiogram.filters import StateFilter, CommandStart
+from aiogram.filters import StateFilter, CommandStart, Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message, CallbackQuery, InputFile
+from aiogram.fsm.state import default_state
+from aiogram.types import Message, CallbackQuery, FSInputFile
 from lexicon.lexicon import LEXICON_RU
 
 
 rt = Router()
 lexicon = LEXICON_RU
+DATABASE_PATH = "database/database.json"
+MAX_NAME_LENGTH = 20
 
 
 @rt.message(CommandStart())
@@ -29,7 +32,9 @@ async def prepare_user(msg: Message, state: FSMContext):
 @rt.message(StateFilter(FSMStates.entering_name))
 async def set_name_and_start_survey(msg: Message, state: FSMContext):
     data = await state.get_data()
-    data["name"] = msg.text
+    data["name"] = msg.text[:20]
+    data["username"] = msg.from_user.username
+    data["user_id"] = msg.from_user.id
     data["current_question_idx"] = 0
 
     await state.set_data(data)
@@ -62,4 +67,22 @@ async def get_answer_and_ask_new(
         question = questions.QUESTIONS[data["current_question_idx"]]
         await questions.ask_question(clb.message.chat.id, question, questions.ANSWERS, state)
     else:
-        await visualize_answers.finish_and_send_results(clb.message, state)
+        x_pos, y_pos = await visualize_answers.finish_and_send_results(clb.message, state)
+        visualize_answers.save_results_to_db(
+            database_path=DATABASE_PATH,
+            x_pos=x_pos,
+            y_pos=y_pos,
+            name=data["name"],
+            username=data["username"],
+            user_id=data["user_id"]
+        )
+        await state.clear()
+
+
+@rt.message(Command("user_map"), StateFilter(default_state))
+async def user_map_and_fellow_suggestions(msg: Message, state: FSMContext):
+    user_map_path, fellow_report_message = visualize_answers.get_user_map_and_fellow_suggestion(
+        msg.from_user.id, DATABASE_PATH
+    )
+    user_map = FSInputFile(user_map_path)
+    await msg.answer_photo(user_map, fellow_report_message)

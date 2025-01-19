@@ -7,5 +7,8 @@ LEXICON_RU = {
     "result": "%s, вот твои результаты.",
     "result_ylabel": "Традиция vs Светскость",
     "result_xlabel": "Выживание vs Самовыражение",
-    "result_title": "Моя политическая культура через @inglehart_survey_bot!"
+    "result_title": "Моя политическая культура через @inglehart_survey_bot!",
+    "start_command_description": "Начать/перезапустить опрос",
+    "user_map_command_description": "Показать карту с другими пользователями!",
+    "fellow_report_intro": """Вот пользователи, которые наиболее схожи с вами:"""
 }
