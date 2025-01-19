@@ -1,6 +1,8 @@
 from lexicon.lexicon import LEXICON_RU
 from survey import questions
 
+import os
+
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, FSInputFile
 import matplotlib.pyplot as plt
@@ -49,3 +51,4 @@ async def finish_and_send_results(msg: Message, state: FSMContext):
     image_path = visualize_answers(data["answers"], data["name"], BACKGROUND_IMAGE_PATH)
     image_results = FSInputFile(image_path)
     await msg.answer_photo(photo=image_results, caption=lexicon["result"] % data["name"])
+    os.remove(image_path)
