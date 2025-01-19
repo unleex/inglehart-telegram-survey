@@ -14,7 +14,7 @@ lexicon = LEXICON_RU
 BACKGROUND_IMAGE_PATH = "images/country_map.png"
 IMAGE_REMOVAL_TIMEOUT = 5
 IMAGE_DPI = 600
-FELLOW_SUGGESTION_THRESHOLD = 0.1
+FELLOW_SUGGESTION_THRESHOLD = 0.3
 
 def process_answers(answers: dict[int, dict[str, int]]):
     total_category_values = {
