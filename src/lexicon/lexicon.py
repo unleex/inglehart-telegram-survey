@@ -5,7 +5,7 @@ LEXICON_RU = {
     """,
     "start_survey": "Так, %s, начинаем опрос!",
     "result": "%s, вот твои результаты.",
-    "result_xlabel": "Традиция vs Светскость",
-    "result_ylabel": "Выживание vs Самовыражение",
+    "result_ylabel": "Традиция vs Светскость",
+    "result_xlabel": "Выживание vs Самовыражение",
     "result_title": "Моя политическая культура через @inglehart_survey_bot!"
 }
