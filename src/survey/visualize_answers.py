@@ -43,6 +43,7 @@ def plot_answers(total_category_values: dict[int, int], name: str, background_im
     plt.title(lexicon["result_title"])
     path_to_image = f"tmp/{name}{time.time()}.jpg"
     plt.savefig(path_to_image, dpi=IMAGE_DPI)
+    plt.clf()
     return path_to_image, (x_pos, y_pos)
     
 
