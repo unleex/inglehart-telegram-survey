@@ -114,6 +114,7 @@ def create_user_map(requesting_user_id: int | str, db: dict):
     plt.ylabel(lexicon["result_ylabel"])
     path_to_image = f"tmp/user_map{requesting_user_data["name"]}{time.time()}.jpg"
     plt.savefig(path_to_image, dpi=IMAGE_DPI)
+    plt.clf()
     return path_to_image
 
 
@@ -140,7 +141,6 @@ def get_fellow_suggestions(requesting_user_id: int | str, threshold: float, db: 
         diff = difference(*requesting_xy, user_data["x_pos"], user_data["y_pos"]) 
         diff /= 2 * (questions.MAXIMUM_RESULT ** 2) # normalize by maximum difference possible
         sim = 1 - diff
-        print(user_data["username"], sim)
         if sim > threshold:
             fellows[user_id] = {"similarity": sim, "name": user_data["name"], "username": user_data["username"]}
     fellow_report = write_fellow_report(fellows)
