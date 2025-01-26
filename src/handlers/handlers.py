@@ -18,7 +18,7 @@ from lexicon.lexicon import LEXICON_RU
 
 rt = Router()
 lexicon = LEXICON_RU
-DATABASE_PATH = "database/database.json"
+DATABASE_PATH = os.path.join("database", "database.json")
 MAX_NAME_LENGTH = 20
 
 
