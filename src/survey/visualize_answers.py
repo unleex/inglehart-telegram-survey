@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import time
 
 lexicon = LEXICON_RU
-BACKGROUND_IMAGE_PATH = "images/country_map.png"
+BACKGROUND_IMAGE_PATH = os.path.join("images, country_map.png")
 IMAGE_REMOVAL_TIMEOUT = 5
 IMAGE_DPI = 600
 FELLOW_SUGGESTION_THRESHOLD = 0.7
@@ -41,7 +41,7 @@ def plot_answers(total_category_values: dict[int, int], name: str, background_im
     plt.xlabel(lexicon["result_xlabel"])
     plt.ylabel(lexicon["result_ylabel"])
     plt.title(lexicon["result_title"])
-    path_to_image = f"tmp/{name}{time.time()}.jpg"
+    path_to_image = os.path.join("tmp",f"{name}{time.time()}.jpg")
     plt.savefig(path_to_image, dpi=IMAGE_DPI)
     plt.clf()
     return path_to_image, (x_pos, y_pos)
@@ -113,7 +113,7 @@ def create_user_map(requesting_user_id: int | str, db: dict):
     )
     plt.xlabel(lexicon["result_xlabel"])
     plt.ylabel(lexicon["result_ylabel"])
-    path_to_image = f"tmp/user_map{requesting_user_data["name"]}{time.time()}.jpg"
+    path_to_image = os.path.join("tmp", f"user_map{requesting_user_data["name"]}{time.time()}.jpg")
     plt.savefig(path_to_image, dpi=IMAGE_DPI)
     plt.clf()
     return path_to_image
