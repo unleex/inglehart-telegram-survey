@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import time
 
 lexicon = LEXICON_RU
-BACKGROUND_IMAGE_PATH = os.path.join("images, country_map.png")
+BACKGROUND_IMAGE_PATH = os.path.join("images", "country_map.png")
 IMAGE_REMOVAL_TIMEOUT = 5
 IMAGE_DPI = 600
 FELLOW_SUGGESTION_THRESHOLD = 0.7
